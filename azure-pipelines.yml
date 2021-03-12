@@ -11,10 +11,15 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: NodeTool@0
+- task: oc-cmd@2
   inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
-
-- script: npm install
-  displayName: 'npm install'
+    connectionType: 'OpenShift Connection Service'
+    openshiftService: 'Openshift'
+    version: '4.6'
+    cmd: 'oc start-build nodejs-ex --folow'
+- task: oc-cmd@2
+  inputs:
+    connectionType: 'OpenShift Connection Service'
+    openshiftService: 'Openshift'
+    version: '4.6'
+    cmd: 'oc status'
